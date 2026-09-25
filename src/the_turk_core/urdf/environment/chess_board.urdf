@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<robot name="the_turk_chess_environment">
+
+    <!-- ================================================== -->
+    <!-- WORLD                                              -->
+    <!-- ================================================== -->
+
+    <link name="world"/>
+
+
+    <!-- ================================================== -->
+    <!-- CHESS BOARD                                        -->
+    <!-- ================================================== -->
+
+    <link name="chess_board">
+
+        <!-- Visual geometry -->
+        <visual>
+
+            <origin
+                xyz="0 0 0"
+                rpy="0 0 0"/>
+
+            <geometry>
+
+                <mesh
+                    filename="package://the_turk_core/meshes/environment/chess_board.stl"
+                    scale="1 1 1"/>
+
+            </geometry>
+
+            <material name="board_material">
+
+                <color
+                    rgba="0.55 0.35 0.20 1.0"/>
+
+            </material>
+
+        </visual>
+
+
+        <!-- Collision geometry -->
+        <collision>
+
+            <origin
+                xyz="0 0 0"
+                rpy="0 0 0"/>
+
+            <geometry>
+
+                <mesh
+                    filename="package://the_turk_core/meshes/environment/chess_board.stl"
+                    scale="1 1 1"/>
+
+            </geometry>
+
+        </collision>
+
+
+        <!-- Inertial data -->
+        <inertial>
+
+            <origin
+                xyz="0 0 0"
+                rpy="0 0 0"/>
+
+            <mass
+                value="2.0"/>
+
+            <inertia
+                ixx="0.027"
+                ixy="0.0"
+                ixz="0.0"
+                iyy="0.027"
+                iyz="0.0"
+                izz="0.053"/>
+
+        </inertial>
+
+    </link>
+
+
+    <!-- ================================================== -->
+    <!-- WORLD -> CHESS BOARD                               -->
+    <!-- ================================================== -->
+
+    <joint
+        name="world_to_chess_board"
+        type="fixed">
+
+        <parent
+            link="world"/>
+
+        <child
+            link="chess_board"/>
+
+        <origin
+            xyz="0 0 0"
+            rpy="0 0 0"/>
+
+    </joint>
+
+</robot>
