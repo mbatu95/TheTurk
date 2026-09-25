@@ -14,7 +14,7 @@ def generate_launch_description():
     urdf_path = os.path.join(
         package_path,
         'urdf',
-        'the_turk.urdf'
+        'the_turk_pro.urdf'
     )
 
     rviz_config = os.path.join(

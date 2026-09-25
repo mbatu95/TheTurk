@@ -26,12 +26,30 @@
     <color rgba="0.05 0.30 0.85 1.0"/>
   </material>
 
+  <material name="blue_dark">
+    <color rgba="0.01 0.08 0.25 1.0"/>
+  </material>
+
+  <material name="rubber">
+    <color rgba="0.015 0.018 0.022 1.0"/>
+  </material>
+
+  <material name="warning">
+    <color rgba="0.95 0.48 0.05 1.0"/>
+  </material>
+
 
   <!-- ========================================================= -->
   <!-- BASE LINK                                                 -->
   <!-- ========================================================= -->
 
   <link name="base_link">
+
+    <inertial>
+      <origin xyz="0 0 0.11"/>
+      <mass value="4.8"/>
+      <inertia ixx="0.080" ixy="0" ixz="0" iyy="0.080" iyz="0" izz="0.105"/>
+    </inertial>
 
     <!-- Bottom plate -->
     <visual>
@@ -69,6 +87,29 @@
       <material name="blue"/>
     </visual>
 
+    <visual>
+      <origin xyz="0 0 0.245"/>
+      <geometry>
+        <cylinder radius="0.125" length="0.025"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <visual>
+      <origin xyz="0.19 0 0.075" rpy="0 0 0.7854"/>
+      <geometry>
+        <box size="0.018 0.12 0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.12"/>
+      <geometry>
+        <cylinder radius="0.24" length="0.24"/>
+      </geometry>
+    </collision>
+
   </link>
 
 
@@ -77,6 +118,12 @@
   <!-- ========================================================= -->
 
   <link name="link1">
+
+    <inertial>
+      <origin xyz="0 0 0.30"/>
+      <mass value="3.2"/>
+      <inertia ixx="0.110" ixy="0" ixz="0" iyy="0.095" iyz="0" izz="0.035"/>
+    </inertial>
 
     <!-- Shoulder motor housing -->
     <!-- Cylinder axis rotated onto Y -->
@@ -168,6 +215,21 @@
       <material name="blue"/>
     </visual>
 
+    <visual>
+      <origin xyz="0.071 0 0.29"/>
+      <geometry>
+        <box size="0.010 0.095 0.34"/>
+      </geometry>
+      <material name="blue_dark"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.30"/>
+      <geometry>
+        <box size="0.16 0.17 0.58"/>
+      </geometry>
+    </collision>
+
   </link>
 
 
@@ -192,6 +254,8 @@
       effort="20"
       velocity="1.0"/>
 
+    <dynamics damping="0.7" friction="0.2"/>
+
   </joint>
 
 
@@ -200,6 +264,12 @@
   <!-- ========================================================= -->
 
   <link name="link2">
+
+    <inertial>
+      <origin xyz="0 0 0.24"/>
+      <mass value="2.1"/>
+      <inertia ixx="0.055" ixy="0" ixz="0" iyy="0.045" iyz="0" izz="0.020"/>
+    </inertial>
 
     <!-- Main forearm -->
     <visual>
@@ -249,6 +319,21 @@
       <material name="metal_light"/>
     </visual>
 
+    <visual>
+      <origin xyz="0.058 0 0.24"/>
+      <geometry>
+        <box size="0.010 0.075 0.20"/>
+      </geometry>
+      <material name="blue_dark"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.24"/>
+      <geometry>
+        <box size="0.14 0.15 0.48"/>
+      </geometry>
+    </collision>
+
   </link>
 
 
@@ -273,6 +358,8 @@
       effort="15"
       velocity="1.2"/>
 
+    <dynamics damping="0.5" friction="0.15"/>
+
   </joint>
 
 
@@ -282,6 +369,12 @@
   <!-- ========================================================= -->
 
   <link name="wrist_link">
+
+    <inertial>
+      <origin xyz="0 0 0.09"/>
+      <mass value="0.65"/>
+      <inertia ixx="0.008" ixy="0" ixz="0" iyy="0.008" iyz="0" izz="0.012"/>
+    </inertial>
 
     <!-- Connector -->
     <visual>
@@ -310,6 +403,21 @@
       <material name="blue"/>
     </visual>
 
+    <visual>
+      <origin xyz="0 0 0.16"/>
+      <geometry>
+        <cylinder radius="0.055" length="0.025"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.08"/>
+      <geometry>
+        <cylinder radius="0.08" length="0.18"/>
+      </geometry>
+    </collision>
+
   </link>
 
 
@@ -330,6 +438,12 @@
 
   <link name="gripper_base">
 
+    <inertial>
+      <origin xyz="0 0 0.055"/>
+      <mass value="0.55"/>
+      <inertia ixx="0.004" ixy="0" ixz="0" iyy="0.004" iyz="0" izz="0.006"/>
+    </inertial>
+
     <visual>
       <origin xyz="0 0 0.045"/>
       <geometry>
@@ -346,6 +460,21 @@
       </geometry>
       <material name="metal"/>
     </visual>
+
+    <visual>
+      <origin xyz="0 0 0.108"/>
+      <geometry>
+        <box size="0.095 0.08 0.010"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.055"/>
+      <geometry>
+        <box size="0.16 0.12 0.11"/>
+      </geometry>
+    </collision>
 
   </link>
 
@@ -367,6 +496,12 @@
 
   <link name="left_finger">
 
+    <inertial>
+      <origin xyz="0 0 0.095"/>
+      <mass value="0.16"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.0002"/>
+    </inertial>
+
     <!-- Finger body -->
     <visual>
       <origin xyz="0 0 0.07"/>
@@ -384,6 +519,21 @@
       </geometry>
       <material name="dark"/>
     </visual>
+
+    <visual>
+      <origin xyz="0 0 0.145"/>
+      <geometry>
+        <box size="0.050 0.050 0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.095"/>
+      <geometry>
+        <box size="0.045 0.045 0.20"/>
+      </geometry>
+    </collision>
 
   </link>
 
@@ -405,6 +555,12 @@
 
   <link name="right_finger">
 
+    <inertial>
+      <origin xyz="0 0 0.095"/>
+      <mass value="0.16"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.0002"/>
+    </inertial>
+
     <!-- Finger body -->
     <visual>
       <origin xyz="0 0 0.07"/>
@@ -422,6 +578,21 @@
       </geometry>
       <material name="dark"/>
     </visual>
+
+    <visual>
+      <origin xyz="0 0 0.145"/>
+      <geometry>
+        <box size="0.050 0.050 0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.095"/>
+      <geometry>
+        <box size="0.045 0.045 0.20"/>
+      </geometry>
+    </collision>
 
   </link>
 

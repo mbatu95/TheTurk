@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+
+<robot name="the_turk_5dof">
+
+  <!--
+    TheTurk - 5 DOF Robotic Arm
+
+    J1: Base Yaw
+    J2: Shoulder Pitch
+    J3: Elbow Pitch
+    J4: Wrist Pitch
+    J5: Wrist Roll
+
+    + 1 DOF Parallel Gripper
+  -->
+
+
+  <!-- ========================= -->
+  <!-- MATERIALS                 -->
+  <!-- ========================= -->
+
+  <material name="graphite">
+    <color rgba="0.045 0.055 0.070 1"/>
+  </material>
+
+  <material name="gunmetal">
+    <color rgba="0.24 0.28 0.34 1"/>
+  </material>
+
+  <material name="machined">
+    <color rgba="0.62 0.66 0.72 1"/>
+  </material>
+
+  <material name="accent">
+    <color rgba="0.06 0.28 0.55 1"/>
+  </material>
+
+
+  <!-- ========================= -->
+  <!-- BASE LINK                 -->
+  <!-- ========================= -->
+
+  <link name="base_link">
+
+    <inertial>
+      <origin xyz="0 0 0.11"/>
+      <mass value="6.0"/>
+
+      <inertia
+        ixx="0.12"
+        ixy="0"
+        ixz="0"
+        iyy="0.12"
+        iyz="0"
+        izz="0.16"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/base_link.stl"/>
+      </geometry>
+
+      <material name="graphite"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.11"/>
+
+      <geometry>
+        <cylinder radius="0.23" length="0.22"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- SHOULDER LINK             -->
+  <!-- ========================= -->
+
+  <link name="shoulder_link">
+
+    <inertial>
+      <origin xyz="0 0 0.12"/>
+      <mass value="3.5"/>
+
+      <inertia
+        ixx="0.05"
+        ixy="0"
+        ixz="0"
+        iyy="0.05"
+        iyz="0"
+        izz="0.04"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/shoulder_link.stl"/>
+      </geometry>
+
+      <material name="graphite"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.12"/>
+
+      <geometry>
+        <box size="0.22 0.22 0.25"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- JOINT 1 - BASE YAW        -->
+  <!-- ========================= -->
+
+  <joint name="joint1_base_yaw" type="revolute">
+
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+
+    <origin xyz="0 0 0.18" rpy="0 0 0"/>
+
+    <axis xyz="0 0 1"/>
+
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="60"
+      velocity="1.5"/>
+
+    <dynamics
+      damping="0.8"
+      friction="0.25"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- UPPER ARM LINK            -->
+  <!-- ========================= -->
+
+  <link name="upper_arm_link">
+
+    <inertial>
+      <origin xyz="0 0 0.25"/>
+      <mass value="3.0"/>
+
+      <inertia
+        ixx="0.09"
+        ixy="0"
+        ixz="0"
+        iyy="0.08"
+        iyz="0"
+        izz="0.025"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/upper_arm_link.stl"/>
+      </geometry>
+
+      <material name="gunmetal"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.25"/>
+
+      <geometry>
+        <box size="0.17 0.16 0.50"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- JOINT 2 - SHOULDER PITCH  -->
+  <!-- ========================= -->
+
+  <joint name="joint2_shoulder_pitch" type="revolute">
+
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+
+    <origin xyz="0 0 0.205" rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.74533"
+      upper="1.5708"
+      effort="55"
+      velocity="1.3"/>
+
+    <dynamics
+      damping="0.7"
+      friction="0.20"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- FOREARM LINK              -->
+  <!-- ========================= -->
+
+  <link name="forearm_link">
+
+    <inertial>
+      <origin xyz="0 0 0.215"/>
+      <mass value="2.2"/>
+
+      <inertia
+        ixx="0.05"
+        ixy="0"
+        ixz="0"
+        iyy="0.045"
+        iyz="0"
+        izz="0.016"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/forearm_link.stl"/>
+      </geometry>
+
+      <material name="gunmetal"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.215"/>
+
+      <geometry>
+        <box size="0.14 0.14 0.43"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- JOINT 3 - ELBOW PITCH     -->
+  <!-- ========================= -->
+
+  <joint name="joint3_elbow_pitch" type="revolute">
+
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+
+    <origin xyz="0 0 0.50" rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-2.35619"
+      upper="2.35619"
+      effort="40"
+      velocity="1.5"/>
+
+    <dynamics
+      damping="0.6"
+      friction="0.18"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- WRIST PITCH LINK          -->
+  <!-- ========================= -->
+
+  <link name="wrist_pitch_link">
+
+    <inertial>
+      <origin xyz="0 0 0.09"/>
+      <mass value="1.0"/>
+
+      <inertia
+        ixx="0.012"
+        ixy="0"
+        ixz="0"
+        iyy="0.012"
+        iyz="0"
+        izz="0.009"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/wrist_pitch_link.stl"/>
+      </geometry>
+
+      <material name="machined"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.09"/>
+
+      <geometry>
+        <cylinder radius="0.08" length="0.18"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- JOINT 4 - WRIST PITCH     -->
+  <!-- ========================= -->
+
+  <joint name="joint4_wrist_pitch" type="revolute">
+
+    <parent link="forearm_link"/>
+    <child link="wrist_pitch_link"/>
+
+    <origin xyz="0 0 0.43" rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-2.0944"
+      upper="2.0944"
+      effort="20"
+      velocity="2.0"/>
+
+    <dynamics
+      damping="0.4"
+      friction="0.10"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- WRIST ROLL LINK           -->
+  <!-- ========================= -->
+
+  <link name="wrist_roll_link">
+
+    <inertial>
+      <origin xyz="0 0 0.075"/>
+      <mass value="0.65"/>
+
+      <inertia
+        ixx="0.006"
+        ixy="0"
+        ixz="0"
+        iyy="0.006"
+        iyz="0"
+        izz="0.004"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/wrist_roll_link.stl"/>
+      </geometry>
+
+      <material name="machined"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.075"/>
+
+      <geometry>
+        <cylinder radius="0.07" length="0.15"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- JOINT 5 - WRIST ROLL      -->
+  <!-- ========================= -->
+
+  <joint name="joint5_wrist_roll" type="revolute">
+
+    <parent link="wrist_pitch_link"/>
+    <child link="wrist_roll_link"/>
+
+    <origin xyz="0 0 0.19" rpy="0 0 0"/>
+
+    <axis xyz="0 0 1"/>
+
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="12"
+      velocity="2.5"/>
+
+    <dynamics
+      damping="0.3"
+      friction="0.08"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- GRIPPER BODY              -->
+  <!-- ========================= -->
+
+  <link name="gripper_link">
+
+    <inertial>
+      <origin xyz="0 0 0.055"/>
+      <mass value="0.55"/>
+
+      <inertia
+        ixx="0.004"
+        ixy="0"
+        ixz="0"
+        iyy="0.004"
+        iyz="0"
+        izz="0.005"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/gripper_link.stl"/>
+      </geometry>
+
+      <material name="graphite"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.055"/>
+
+      <geometry>
+        <box size="0.15 0.12 0.11"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- FIXED TOOL MOUNT          -->
+  <!-- ========================= -->
+
+  <joint name="tool_mount_joint" type="fixed">
+
+    <parent link="wrist_roll_link"/>
+    <child link="gripper_link"/>
+
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- LEFT GRIPPER FINGER       -->
+  <!-- ========================= -->
+
+  <link name="left_finger_link">
+
+    <inertial>
+      <origin xyz="0 0 0.10"/>
+      <mass value="0.12"/>
+
+      <inertia
+        ixx="0.0008"
+        ixy="0"
+        ixz="0"
+        iyy="0.0008"
+        iyz="0"
+        izz="0.00015"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/left_finger_link.stl"/>
+      </geometry>
+
+      <material name="machined"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.10"/>
+
+      <geometry>
+        <box size="0.04 0.03 0.20"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- ========================= -->
+  <!-- GRIPPER ACTUATION         -->
+  <!-- ========================= -->
+
+  <joint name="gripper_joint" type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="left_finger_link"/>
+
+    <origin xyz="0 0.035 0.085" rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="0.0"
+      upper="0.035"
+      effort="30"
+      velocity="0.08"/>
+
+    <dynamics
+      damping="0.25"
+      friction="0.08"/>
+
+  </joint>
+
+
+  <!-- ========================= -->
+  <!-- RIGHT GRIPPER FINGER      -->
+  <!-- ========================= -->
+
+  <link name="right_finger_link">
+
+    <inertial>
+      <origin xyz="0 0 0.10"/>
+      <mass value="0.12"/>
+
+      <inertia
+        ixx="0.0008"
+        ixy="0"
+        ixz="0"
+        iyy="0.0008"
+        iyz="0"
+        izz="0.00015"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://the_turk_core/meshes/5dof/right_finger_link.stl"/>
+      </geometry>
+
+      <material name="machined"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.10"/>
+
+      <geometry>
+        <box size="0.04 0.03 0.20"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <!-- Right finger mirrors the left finger -->
+
+  <joint name="right_finger_joint" type="prismatic">
+
+    <parent link="gripper_link"/>
+    <child link="right_finger_link"/>
+
+    <origin xyz="0 -0.035 0.085" rpy="0 0 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+    <limit
+      lower="0.0"
+      upper="0.035"
+      effort="30"
+      velocity="0.08"/>
+
+    <mimic
+      joint="gripper_joint"
+      multiplier="1.0"
+      offset="0.0"/>
+
+    <dynamics
+      damping="0.25"
+      friction="0.08"/>
+
+  </joint>
+
+</robot>
