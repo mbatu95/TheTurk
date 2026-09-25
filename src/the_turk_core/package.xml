@@ -6,8 +6,12 @@
   <description>TODO: Package description</description>
   <maintainer email="mbatu95@outlook.com">root</maintainer>
   <license>Apache-2.0</license>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

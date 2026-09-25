@@ -88,17 +88,17 @@ ros2 node info <node_name>
 
 ---
 
-## 7. Compare the Two Nodes
+## 7. Topic Info
 
 ```bash
-ros2 node info /turtlesim
+ros2 topic info /turtle1/cmd_vel
 ```
+
+## 7.1. Interface Definition
 
 ```bash
-ros2 node info /teleop_turtle
+ros2 interface show geometry_msgs/msg/Twist
 ```
-
----
 
 ## 8. Visualize the ROS Graph
 

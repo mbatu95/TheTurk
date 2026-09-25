@@ -1,11 +1,47 @@
 cmake_minimum_required(VERSION 3.8)
 project(the_turk_core)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+add_executable(control_node src/control_node.cpp)
+ament_target_dependencies(
+  control_node
+  rclcpp
+  std_msgs
+)
+
+add_executable(robot_node src/robot_node.cpp)
+ament_target_dependencies(
+  robot_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+)
+
+install(TARGETS
+  control_node
+  robot_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(
+  DIRECTORY
+    launch
+    urdf
+    rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.

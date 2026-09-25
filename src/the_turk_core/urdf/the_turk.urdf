@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+
+<robot name="the_turk">
+
+  <!-- ========================================================= -->
+  <!-- MATERIALS                                                 -->
+  <!-- ========================================================= -->
+
+  <material name="dark">
+    <color rgba="0.10 0.12 0.15 1.0"/>
+  </material>
+
+  <material name="dark_light">
+    <color rgba="0.20 0.23 0.27 1.0"/>
+  </material>
+
+  <material name="metal">
+    <color rgba="0.55 0.58 0.62 1.0"/>
+  </material>
+
+  <material name="metal_light">
+    <color rgba="0.75 0.78 0.82 1.0"/>
+  </material>
+
+  <material name="blue">
+    <color rgba="0.05 0.30 0.85 1.0"/>
+  </material>
+
+
+  <!-- ========================================================= -->
+  <!-- BASE LINK                                                 -->
+  <!-- ========================================================= -->
+
+  <link name="base_link">
+
+    <!-- Bottom plate -->
+    <visual>
+      <origin xyz="0 0 0.04"/>
+      <geometry>
+        <cylinder radius="0.24" length="0.08"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <!-- Middle pedestal -->
+    <visual>
+      <origin xyz="0 0 0.11"/>
+      <geometry>
+        <cylinder radius="0.18" length="0.10"/>
+      </geometry>
+      <material name="dark_light"/>
+    </visual>
+
+    <!-- Upper rotating-looking platform -->
+    <visual>
+      <origin xyz="0 0 0.18"/>
+      <geometry>
+        <cylinder radius="0.145" length="0.06"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <!-- Decorative blue ring -->
+    <visual>
+      <origin xyz="0 0 0.215"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.015"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ========================================================= -->
+  <!-- LINK 1 / UPPER ARM                                        -->
+  <!-- ========================================================= -->
+
+  <link name="link1">
+
+    <!-- Shoulder motor housing -->
+    <!-- Cylinder axis rotated onto Y -->
+    <visual>
+      <origin xyz="0 0 0"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.13" length="0.20"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <!-- Shoulder outer plate -->
+    <visual>
+      <origin xyz="0 -0.11 0"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.105" length="0.025"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+    <!-- Shoulder blue cap -->
+    <visual>
+      <origin xyz="0 -0.125 0"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+
+    <!-- Main upper arm -->
+    <visual>
+      <origin xyz="0 0 0.29"/>
+      <geometry>
+        <box size="0.13 0.14 0.48"/>
+      </geometry>
+      <material name="dark_light"/>
+    </visual>
+
+    <!-- Front metallic strip -->
+    <visual>
+      <origin xyz="0.068 0 0.29"/>
+      <geometry>
+        <box size="0.018 0.105 0.39"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <!-- Decorative blue strip -->
+    <visual>
+      <origin xyz="0.079 0 0.29"/>
+      <geometry>
+        <box size="0.008 0.065 0.24"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+
+    <!-- Elbow housing -->
+    <visual>
+      <origin xyz="0 0 0.58"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.115" length="0.18"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <!-- Elbow outer plate -->
+    <visual>
+      <origin xyz="0 -0.10 0.58"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.095" length="0.025"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+    <!-- Elbow blue cap -->
+    <visual>
+      <origin xyz="0 -0.115 0.58"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ========================================================= -->
+  <!-- JOINT 1                                                   -->
+  <!-- ========================================================= -->
+
+  <joint name="joint1" type="revolute">
+
+    <parent link="base_link"/>
+    <child link="link1"/>
+
+    <origin xyz="0 0 0.28"
+            rpy="0 0 0"/>
+
+    <!-- Rotation around Y -->
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="20"
+      velocity="1.0"/>
+
+  </joint>
+
+
+  <!-- ========================================================= -->
+  <!-- LINK 2 / FOREARM                                          -->
+  <!-- ========================================================= -->
+
+  <link name="link2">
+
+    <!-- Main forearm -->
+    <visual>
+      <origin xyz="0 0 0.24"/>
+      <geometry>
+        <box size="0.11 0.12 0.38"/>
+      </geometry>
+      <material name="dark_light"/>
+    </visual>
+
+    <!-- Metallic side/front strip -->
+    <visual>
+      <origin xyz="0.058 0 0.24"/>
+      <geometry>
+        <box size="0.014 0.09 0.30"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <!-- Blue decorative strip -->
+    <visual>
+      <origin xyz="0.067 0 0.24"/>
+      <geometry>
+        <box size="0.006 0.055 0.17"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+
+    <!-- Wrist housing -->
+    <visual>
+      <origin xyz="0 0 0.48"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.085" length="0.14"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <!-- Wrist metallic cap -->
+    <visual>
+      <origin xyz="0 -0.08 0.48"
+              rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.02"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+  </link>
+
+
+  <!-- ========================================================= -->
+  <!-- JOINT 2                                                   -->
+  <!-- ========================================================= -->
+
+  <joint name="joint2" type="revolute">
+
+    <parent link="link1"/>
+    <child link="link2"/>
+
+    <origin xyz="0 0 0.58"
+            rpy="0 0 0"/>
+
+    <!-- Rotation around Y -->
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-2.0944"
+      upper="2.0944"
+      effort="15"
+      velocity="1.2"/>
+
+  </joint>
+
+
+  <!-- ========================================================= -->
+  <!-- WRIST LINK                                                -->
+  <!-- Fixed: visual only                                        -->
+  <!-- ========================================================= -->
+
+  <link name="wrist_link">
+
+    <!-- Connector -->
+    <visual>
+      <origin xyz="0 0 0.055"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.11"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+    <!-- Tool mounting plate -->
+    <visual>
+      <origin xyz="0 0 0.12"/>
+      <geometry>
+        <cylinder radius="0.09" length="0.035"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <!-- Blue tool ring -->
+    <visual>
+      <origin xyz="0 0 0.142"/>
+      <geometry>
+        <cylinder radius="0.075" length="0.012"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+  </link>
+
+
+  <joint name="wrist_fixed_joint" type="fixed">
+
+    <parent link="link2"/>
+    <child link="wrist_link"/>
+
+    <origin xyz="0 0 0.48"
+            rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ========================================================= -->
+  <!-- GRIPPER PALM                                              -->
+  <!-- ========================================================= -->
+
+  <link name="gripper_base">
+
+    <visual>
+      <origin xyz="0 0 0.045"/>
+      <geometry>
+        <box size="0.16 0.12 0.09"/>
+      </geometry>
+      <material name="dark_light"/>
+    </visual>
+
+    <!-- Metallic front face -->
+    <visual>
+      <origin xyz="0 0 0.095"/>
+      <geometry>
+        <box size="0.13 0.10 0.018"/>
+      </geometry>
+      <material name="metal"/>
+    </visual>
+
+  </link>
+
+
+  <joint name="gripper_base_joint" type="fixed">
+
+    <parent link="wrist_link"/>
+    <child link="gripper_base"/>
+
+    <origin xyz="0 0 0.15"
+            rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ========================================================= -->
+  <!-- LEFT GRIPPER FINGER                                       -->
+  <!-- ========================================================= -->
+
+  <link name="left_finger">
+
+    <!-- Finger body -->
+    <visual>
+      <origin xyz="0 0 0.07"/>
+      <geometry>
+        <box size="0.045 0.045 0.14"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+    <!-- Finger tip -->
+    <visual>
+      <origin xyz="0 0 0.155"/>
+      <geometry>
+        <box size="0.045 0.045 0.05"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+  </link>
+
+
+  <joint name="left_finger_joint" type="fixed">
+
+    <parent link="gripper_base"/>
+    <child link="left_finger"/>
+
+    <origin xyz="0 0.075 0.09"
+            rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ========================================================= -->
+  <!-- RIGHT GRIPPER FINGER                                      -->
+  <!-- ========================================================= -->
+
+  <link name="right_finger">
+
+    <!-- Finger body -->
+    <visual>
+      <origin xyz="0 0 0.07"/>
+      <geometry>
+        <box size="0.045 0.045 0.14"/>
+      </geometry>
+      <material name="metal_light"/>
+    </visual>
+
+    <!-- Finger tip -->
+    <visual>
+      <origin xyz="0 0 0.155"/>
+      <geometry>
+        <box size="0.045 0.045 0.05"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+  </link>
+
+
+  <joint name="right_finger_joint" type="fixed">
+
+    <parent link="gripper_base"/>
+    <child link="right_finger"/>
+
+    <origin xyz="0 -0.075 0.09"
+            rpy="0 0 0"/>
+
+  </joint>
+
+
+</robot>
