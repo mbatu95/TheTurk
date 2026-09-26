@@ -193,3 +193,13 @@ Then:
 ```bash
 ros2 node list
 ```
+
+```bash
+
+cd ~/TheTurk
+source /opt/ros/jazzy/setup.bash
+source install/setup.bash
+export DISPLAY=:12
+ros2 launch the_turk_core display_5dof.launch.py
+
+```
